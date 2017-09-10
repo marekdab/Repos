@@ -1,0 +1,11 @@
+C:\Users\Lenovo\source\repos\Test\DAL\bin\Debug\DAL.dll.config
+C:\Users\Lenovo\source\repos\Test\DAL\bin\Debug\DAL.dll
+C:\Users\Lenovo\source\repos\Test\DAL\bin\Debug\DAL.pdb
+C:\Users\Lenovo\source\repos\Test\DAL\bin\Debug\EntityFramework.dll
+C:\Users\Lenovo\source\repos\Test\DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Lenovo\source\repos\Test\DAL\bin\Debug\EntityFramework.xml
+C:\Users\Lenovo\source\repos\Test\DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Lenovo\source\repos\Test\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+C:\Users\Lenovo\source\repos\Test\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\Test\DAL\obj\Debug\DAL.dll
+C:\Users\Lenovo\source\repos\Test\DAL\obj\Debug\DAL.pdb

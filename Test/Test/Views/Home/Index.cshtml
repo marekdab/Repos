@@ -1,0 +1,23 @@
+﻿@model Models.ViewsModels.PlayerViewModel
+
+
+@{
+    ViewBag.Title = "Main";
+}
+@if (Model.Nick == null)
+{
+    using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+       @Html.LabelFor(x => x.Nick, "Wprowadź nick")
+       @Html.TextBoxFor(x => x.Nick)
+       <input type="submit", value="OK" />
+    }
+}else
+{
+    <p>Witaj @Model.Nick</p>
+
+    using (Html.BeginForm("Room", "Home"))
+    {
+        <input type="submit" value="Zobacz dostepne pokoje" />
+    }
+}

@@ -1,0 +1,90 @@
+﻿@model Models.ViewsModels.RoomViewModel
+@{
+    ViewBag.Title = "Room";
+}
+
+<h2>Room</h2>
+
+@if(Model.UsPlayer.Room == null)
+{
+    using (Html.BeginForm("CreateRoom", "Home", FormMethod.Post))
+    {
+        @Html.LabelFor(x =>x.NewRoom.Name, "Nazwa pokoju")
+        @Html.TextBoxFor(x => x.NewRoom.Name)
+        @Html.LabelFor(x => x.NewRoom.Password, "Hasło do pokoju (opcjonalnie)")
+        @Html.TextBoxFor(x => x.NewRoom.Password)
+        <input type="submit", value="Załóż pokój" />
+    }
+
+    <table border="1">
+        <tr>
+            <td>Nazwa</td>
+            <td>Hasło</td>
+        </tr>
+        @foreach (var Room in Model.ListOfRooms)
+        {
+           <tr>
+               <td>@Room.Name</td>
+               <td>@using (Html.BeginForm("GoToRoom", "Home", FormMethod.Post))
+               {
+                   @Html.Hidden("RoomId", Room.Id)
+                   @Html.TextBox("Password", null)
+                   <input type="submit", value="WEJDŹ" />
+               }</td>
+           </tr>
+        }
+    </table>
+}else
+{
+    <h2>@Model.Room.Name</h2>
+
+    <p>Lista graczy w tym pokoju</p>
+    foreach (var Player in Model.PlayersInRoom)
+    {
+        <p>@Player.Nick</p>
+    }
+
+    <h2>GRY</h2>
+
+    using (Html.BeginForm("AddGame", "Home", FormMethod.Post))
+    {
+        @Html.LabelFor(x => x.NewGame.Name, "Nazwa gry")
+        @Html.TextBoxFor(x => x.NewGame.Name)
+        @Html.LabelFor(x => x.NewGame.Time, "Czas gry w minutach ")
+        @Html.TextBoxFor(x => x.NewGame.Time)
+        @Html.LabelFor(x => x.NewGame.Password, "Hasło (wymagane)")
+        @Html.TextBoxFor(x => x.NewGame.Password)
+        @Html.LabelFor(x => x.NewGame.Description, "Opis (opcjonalnie)")
+        @Html.TextAreaFor(x => x.NewGame.Description)
+        <input type="submit" value="Dodaj gre" />
+    }
+
+
+    <table border="1">
+        <tr>
+            <td>Nazwa</td>
+            <td>Czas trwania w minutach</td>
+            <td>Opis</td>
+        </tr>
+            @foreach (var game in Model.GamesInRoom)
+            {
+                <tr>
+                    <td>@game.Name</td>
+                    <td>@game.Time</td>
+                    <td>@game.Description</td>
+                </tr>
+            }
+    </table>
+
+
+
+
+
+    using (Html.BeginForm("OutFromRoom", "Home", FormMethod.Post))
+    {
+        <input type="submit", value="Wyjdz z pokoju" />
+    }
+
+
+}
+

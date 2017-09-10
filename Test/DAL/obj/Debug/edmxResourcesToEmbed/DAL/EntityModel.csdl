@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GameTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="GameTestEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Games" EntityType="GameTestModel.Game" />
+    <EntitySet Name="Players" EntityType="GameTestModel.Player" />
+    <EntitySet Name="Rooms" EntityType="GameTestModel.Room" />
+    <EntitySet Name="Tables" EntityType="GameTestModel.Table" />
+    <AssociationSet Name="FK_Game_Room" Association="GameTestModel.FK_Game_Room">
+      <End Role="Room" EntitySet="Rooms" />
+      <End Role="Game" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Player_Room" Association="GameTestModel.FK_Player_Room">
+      <End Role="Room" EntitySet="Rooms" />
+      <End Role="Player" EntitySet="Players" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Time" Type="Int32" Nullable="false" />
+    <Property Name="Room" Type="Int32" />
+    <NavigationProperty Name="Room1" Relationship="GameTestModel.FK_Game_Room" FromRole="Game" ToRole="Room" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Player">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nick" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Room" Type="Int32" />
+    <NavigationProperty Name="Room1" Relationship="GameTestModel.FK_Player_Room" FromRole="Player" ToRole="Room" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatorId" Type="Int32" />
+    <NavigationProperty Name="Games" Relationship="GameTestModel.FK_Game_Room" FromRole="Room" ToRole="Game" />
+    <NavigationProperty Name="Players" Relationship="GameTestModel.FK_Player_Room" FromRole="Room" ToRole="Player" />
+  </EntityType>
+  <EntityType Name="Table">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatorId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Game_Room">
+    <End Type="GameTestModel.Room" Role="Room" Multiplicity="0..1" />
+    <End Type="GameTestModel.Game" Role="Game" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Game">
+        <PropertyRef Name="Room" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Player_Room">
+    <End Type="GameTestModel.Room" Role="Room" Multiplicity="0..1" />
+    <End Type="GameTestModel.Player" Role="Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Player">
+        <PropertyRef Name="Room" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
